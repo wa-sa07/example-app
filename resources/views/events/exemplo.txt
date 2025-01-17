@@ -1,0 +1,5 @@
+criar
+uma migration,
+PS C:\apps\laravel\example-app> php artisan make:migration add_items_to_event_table
+
+pegar os itens da migrate imagem

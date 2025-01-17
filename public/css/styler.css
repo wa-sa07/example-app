@@ -1,0 +1,209 @@
+/* General */
+
+*{
+   font-family: 'Roboto';
+ }
+
+body{
+    min-height: 100vh ;
+    padding-bottom: 100px ;
+    position: relative;
+}
+
+header{
+    background-color: #FFF;
+    border-bottom: 1px solid #CCC;
+}
+
+.row {
+    margin: 0;
+}
+
+.container-fluid {
+    padding: 0;
+}
+
+.btn-primary{
+    background-color:#d41737;
+    border: 3px solid #d86417;
+    color: #FFF;
+}
+
+.btn-primary:hover{
+    background-color: #d86417;
+    border-color: #2b16a3;
+}
+
+.btn-primary:hover{
+    background-color: #d86417;
+    border-color: #2b16a3;
+}
+
+.msg{
+    background-color: #e0e9e2;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    width: 100% ;
+    margin-bottom: 0;
+    text-align: center;
+    padding: 10px;
+}
+/* navbar */
+#navbar img{
+    width: 40px;
+}
+
+#navbar{
+    justify-content: space-between; /* centraliza a navbar para o lado esquerdo  */
+    background-color: #FFF;
+    padding: 5px 0;
+}
+
+#navbar a {
+    font-size: 14px;
+    color: #757575;
+}
+#navbar a:hover { /* quando passa o mouse sobre a navbar a cor fica laranja  */
+    color: #ce6d13;
+}
+
+/* Search Container */
+#search-container {
+    background-image: url("../img/banner.jpg");
+    background-size: cover;
+    background-position: center;
+    height: 400px;
+    padding: 50px;
+    text-align: center;
+}
+
+#search-container h1{
+    color: #d36c18;
+    margin-bottom: 30px;
+    font-weight: 900;
+}
+
+#search-container form{
+    width: 50%;
+    margin: 0 auto;
+
+}
+/*Event list */
+#events-container{
+    padding: 50px;
+}
+
+#events-container h2{
+    margin-bottom: 10px;
+}
+
+#events-container .subtitle{
+    color: #757575;
+    margin-bottom: 30px;
+}
+
+#cards-container {
+    display: flex;
+}
+
+#events-container .card{
+    flex: 1 1 24% ;
+    max-width: 25%;
+    border-radius: 10px;
+    padding: 0;
+    margin: .5px;
+    /* divide em 4 eventos por linha */
+}
+
+#events-container img{
+    max-height: 150px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.card .card-date {
+    font-size: 12px;
+    color: #CCC;
+}
+
+.card .card-title{
+    color: #212121;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.card-participants {
+    font-size: 14px;
+    color: #757575;
+}
+
+/* Event page */
+#image-container,
+#info-container {
+    margin-top: 30px;
+}
+
+#image-container img {
+    border-radius: 10px;
+}
+
+
+#info-container h1{
+    font-size: 36px;
+    font-weight: 900;
+}
+
+/* Paragráfo */
+
+#info-container p {
+    margin: 0;
+    font-size: 14px;
+    display: flex;
+    color: #0a0909;
+    margin-bottom: 30px;
+}
+
+#info-container p i {
+    margin-right: 5px; /* Adiciona uma margem à direita dos ícones */
+}
+
+#info-container h3,
+#info-container h3{
+    font-size: 20px;
+    font-weight: bold;
+
+}
+
+#info-container bi-bi {
+    font-size: 20px ;
+    color: #d86417;
+    margin-right: 5px;
+
+}
+
+/* botão */
+#info-container #event-submit{
+    margin: 20px 0;
+}
+
+#info-container h1 {
+    color: #d36c18;
+    margin-bottom: 30px;
+}
+
+/* footer */
+
+footer {
+    text-align: center;
+    background-color: #353e48;
+    color: #FFF;
+    padding: 30px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+footer p {
+    margin-bottom: 0;
+}
