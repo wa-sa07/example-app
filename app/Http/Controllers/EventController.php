@@ -3,79 +3,65 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Models\Event;
+use App\Models\User;
 
 class EventController extends Controller
 {
     // Rotas de controle
 
     public function index() {
+        $search = request('search');
+        if($search) {
+            // Se houver uma pesquisa, filtra os eventos pelo título
+            $events = Event::where('title', 'like', '%'.$search.'%')->get();
+        } else {
+            // Caso contrário, retorna todos os eventos
+            $events = Event::all();
+        }
 
-          $events = Event::all();  // chamando todos os eventos para mh aplicação
-
-          return view('welcome',['events' => $events]);
-          // enviando todos os itens da minha view para o banco
+        return view('welcome', ['events' => $events, 'search' => $search]);
     }
 
     public function create() {
         return view('events.create');
     }
 
-    // eu vou receber o request pelo os parametros direto do meu formulário laravel
+    // Recebe o request pelo os parâmetros direto do formulário Laravel
     public function store(Request $request){
-        // tenho que criar um objeto com esses dados
-
+        // Cria um novo objeto Event
         $event = new Event;
-        // vou espelhar o meu objeto para que preencha as informações obrigatórias
-        $event -> title = $request -> title;
-        $event -> city = $request -> city;
-        $event -> private = $request -> private;
-        $event -> description = $request -> description;
-        $event -> items = $request -> items; // dizer que o dado vem em array e não em uma string
 
+        // Preenche as informações obrigatórias
+        $event->title = $request->title;
+        $event->event_date = $request->date; // Certifique-se de que o nome do campo no formulário é 'date'
+        $event->city = $request->city;
+        $event->private = $request->private;
+        $event->description = $request->description;
+        $event->items = $request->items; // Certifique-se de que o campo 'items' é um array
 
-
-        // image upload
-        // se o request tiver o arquivo hasfile se tiver o arquivo e ele for uma imagem, ele for válido podemos proseguir
-
-        if($request->hasFile('image') && $request ->file('image')->isValid()){
-
-            $requestImage = $request-> image;
-
-            $extension = $requestImage ->extension(); // criar a extensão e tbm o nome dela
-
+        // Upload da imagem
+        if($request->hasFile('image') && $request->file('image')->isValid()){
+            $requestImage = $request->image;
+            $extension = $requestImage->extension(); // Obtém a extensão do arquivo
             $imageName = md5($requestImage->getClientOriginalName() . strtotime("now")) . "." . $extension;
-
-            // deixa o nome do arquivo único concatenando com o tempo de agr cria uma string com base no tempo que estou dando upload no md5 uma rest
-
-            // adicionar a imagem a pasta
-
-            $requestImage -> move(public_path('img/events'), $imageName); // local da imagem / salva com o nome
-
-           // fazendo uma extensão para o imageName name que é o nome da imagem
-
-           $event -> image = $imageName; //dados que seram salvos no banco
-
-           // para essa ação será necessário criar as migrations se não apontará erro ao tenta carregar a imagem
-
-
+            $requestImage->move(public_path('img/events'), $imageName); // Move a imagem para a pasta pública
+            $event->image = $imageName; // Salva o nome da imagem no banco de dados
         }
 
-        // salvar os arquivos no banco de dados a pessistir
-        $event->save(); // salvando completamente
-        // eu vou redirecionar o usuário para alguma página
-        // eu posso retornar uma view ou dar um redirection
+        $user = auth()->user(); // Obtém o usuário logado
+        $event->user_id = $user->id; // Associa o evento ao usuário logado
 
-       return redirect('/')->with('msg', 'Evento criado com sucesso!!');
+        // Salva o evento no banco de dados
+        $event->save();
 
+        // Redireciona o usuário para a página inicial com uma mensagem de sucesso
+        return redirect('/')->with('msg', 'Evento criado com sucesso!!');
     }
-    // esperando um id vindo do front
+
+    // Espera um id vindo do front
     public function show($id) {
-       $event = Event::findOrFail($id);
-        #retorna uma view
-       return view('events.show', ['event' => $event]);
+        $event = Event::findOrFail($id);
+        return view('events.show', ['event' => $event]);
     }
-
 }
-

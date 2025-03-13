@@ -10,4 +10,15 @@ class Event extends Model
     protected $casts = [
         'items' => 'array'
     ];
+
+    protected $dates = ['date']; // diz pro laravel que o campo date é uma data
+    // criando um campo date para o laravel
+
+    // adicionando usuário que é dono do evento
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
+    //belongsTo pertence a um usuário
 }
